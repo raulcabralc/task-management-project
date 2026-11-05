@@ -93,7 +93,7 @@ export function TaskForm({
             setTitleError(null);
             setSubmitError(null);
           }}
-          className="focus-ring mt-2 block min-h-11 w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-base text-ink placeholder:text-[#81796f] disabled:cursor-not-allowed disabled:bg-[#f5f0e8]"
+          className="focus-ring mt-2 block min-h-11 w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-base text-ink placeholder:text-[#756e66] disabled:cursor-not-allowed disabled:bg-[#f5f0e8]"
         />
         {titleError && (
           <p id={`${id}-title-error`} role="alert" className="mt-2 text-sm font-medium text-[#a43227]">
@@ -117,7 +117,7 @@ export function TaskForm({
             setDescription(event.target.value);
             setSubmitError(null);
           }}
-          className="focus-ring mt-2 block w-full resize-y rounded-xl border border-line bg-white px-3.5 py-3 text-base leading-6 text-ink placeholder:text-[#81796f] disabled:cursor-not-allowed disabled:bg-[#f5f0e8]"
+          className="focus-ring mt-2 block w-full resize-y rounded-xl border border-line bg-white px-3.5 py-3 text-base leading-6 text-ink placeholder:text-[#756e66] disabled:cursor-not-allowed disabled:bg-[#f5f0e8]"
         />
       </div>
 
