@@ -35,6 +35,7 @@ export function TaskManager({ tasks }: { tasks: Task[] }) {
   const dialogPending = deletingId !== null || isUpdating;
   const busy = dialogPending || isRefreshing;
 
+  // The edit trigger may be replaced by refresh, so focus its new element after it renders.
   useEffect(() => {
     if (activeDialog || isRefreshing || !focusEditAfterRefreshRef.current) return;
     const button = document.getElementById(focusEditAfterRefreshRef.current);
@@ -44,6 +45,7 @@ export function TaskManager({ tasks }: { tasks: Task[] }) {
     }
   }, [activeDialog, isRefreshing, tasks]);
 
+  // Refresh the server-rendered list instead of keeping a second client-side task collection.
   function refreshTasks() {
     startTransition(() => router.refresh());
   }

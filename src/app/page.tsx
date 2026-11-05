@@ -1,6 +1,7 @@
 import { createServerCaller } from "@/trpc/server";
 import { TaskManager } from "@/features/tasks/task-manager";
 
+// Mutable tasks need request-time rendering; the server caller puts the initial list in HTML.
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
