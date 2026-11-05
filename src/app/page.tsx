@@ -1,14 +1,8 @@
 import { createServerCaller } from "@/trpc/server";
+import { TaskManager } from "@/features/tasks/task-manager";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
-
-const dateFormatter = new Intl.DateTimeFormat("en", {
-  year: "numeric",
-  month: "short",
-  day: "numeric",
-  timeZone: "UTC",
-});
 
 export default async function HomePage() {
   const tasks = await createServerCaller().tasks.list();
@@ -22,41 +16,7 @@ export default async function HomePage() {
         </p>
       </header>
 
-      <section aria-labelledby="tasks-heading">
-        <h2 id="tasks-heading" className="mb-5 text-lg font-semibold">
-          Tasks
-        </h2>
-
-        {tasks.length === 0 ? (
-          <div className="rounded-lg border border-slate-200 bg-white px-6 py-10 text-center">
-            <p className="font-medium">No tasks yet</p>
-            <p className="mt-2 text-sm text-slate-600">
-              Tasks you add will appear here.
-            </p>
-          </div>
-        ) : (
-          <ul className="space-y-3">
-            {tasks.map((task) => (
-              <li key={task.id}>
-                <article className="rounded-lg border border-slate-200 bg-white p-5">
-                  <h3 className="font-medium">{task.title}</h3>
-                  {task.description && (
-                    <p className="mt-2 whitespace-pre-wrap text-sm text-slate-600">
-                      {task.description}
-                    </p>
-                  )}
-                  <p className="mt-4 text-xs text-slate-500">
-                    Created{" "}
-                    <time dateTime={task.createdAt}>
-                      {dateFormatter.format(new Date(task.createdAt))}
-                    </time>
-                  </p>
-                </article>
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
+      <TaskManager tasks={tasks} />
     </main>
   );
 }
