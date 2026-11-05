@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { createTaskRepository } from "./repository";
 import { appRouter } from "../../trpc/routers/_app";
+import { createTaskSchema } from "../../features/tasks/schemas";
 
 function createCaller() {
   return appRouter.createCaller({ taskRepository: createTaskRepository() });
@@ -35,6 +36,15 @@ test("rejects empty and whitespace-only titles", async () => {
     code: "BAD_REQUEST",
   });
   assert.deepEqual(await caller.tasks.list(), []);
+});
+
+test("requires a title in task input", () => {
+  const result = createTaskSchema.safeParse({ description: "No title" });
+
+  assert.equal(result.success, false);
+  if (!result.success) {
+    assert.equal(result.error.issues[0]?.path[0], "title");
+  }
 });
 
 test("updates a task while preserving its identity and creation time", async () => {
