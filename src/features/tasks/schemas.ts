@@ -21,5 +21,11 @@ export const updateTaskSchema = z
 
 export const deleteTaskSchema = z.object({ id: z.uuid() }).strict();
 
+export const listPaginatedSchema = z.object({
+  limit: z.number().int().min(1).max(50).optional(),
+  cursor: z.string().min(1, "Invalid task cursor.").max(256, "Invalid task cursor.").optional(),
+}).strict().optional();
+
 export type CreateTaskInput = z.infer<typeof createTaskSchema>;
 export type UpdateTaskInput = z.infer<typeof updateTaskSchema>;
+export type ListPaginatedInput = NonNullable<z.infer<typeof listPaginatedSchema>>;
